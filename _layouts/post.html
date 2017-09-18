@@ -47,3 +47,17 @@ layout: default
 </div>
 </section>
 <!-- /section.content -->
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+    owner: 'binz123',
+    repo: 'https://github.com/binz123/binzblog/tree/gh-pages',
+    oauth: {
+        client_id: 'ba21e206004219760e3f',
+        client_secret: '3aca8eb8f2cae89cec10f1cef181203ae6893721',
+    },
+});
+gitment.render('gitmentContainer');
+</script>
