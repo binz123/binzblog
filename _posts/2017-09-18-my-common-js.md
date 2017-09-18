@@ -719,3 +719,7 @@ img{
 //比如在iphone6(屏幕宽度：375)上，375/750*100=50px;就是1rem=50px;图片显示就是宽高都是50px;
 
 ```
+
+## 5.封装成库
+
+[[如何封装JS工具库]](http://binzhome.com/2017/09/18/how-to-package-libray/).
