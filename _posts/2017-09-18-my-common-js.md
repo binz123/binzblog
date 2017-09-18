@@ -402,8 +402,8 @@ function removeArrayForValue(arr,val,type){
 
 ```
 
-## 基础DOM操作
-### 虽然有jquery可以做到一下这些操作，但是自己写写看看不也是一种乐趣么？
+## 4.基础DOM操作
+虽然有jquery可以做到一下这些操作，但是自己写写看看不也是一种乐趣么？
 ```javascript
 //设置对象内容
 jquery：$('#xxx').html('hello world');
@@ -508,7 +508,7 @@ function hide(obj){
 }
 ```
 
-## 其他操作
+## 5.其他操作
 
 **cookie:**
 ```javascript
