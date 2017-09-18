@@ -49,14 +49,12 @@ layout: default
 <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
-console.log('{{ site.gitment.owner }}');
-console.log('{{ site.gitment.repo }}');
 var gitment = new Gitment({
-    owner: 'binz123',
+    owner: '{{ site.gitment.username }}',
     repo: '{{ site.gitment.repo }}',
     oauth: {
-        client_id: 'ba21e206004219760e3f',
-        client_secret: '3aca8eb8f2cae89cec10f1cef181203ae6893721',
+        client_id: '{{ site.gitment.oauth.user_id }}',
+        client_secret: '{{ site.gitment.oauth.user_sercret }}',
     },
 });
 gitment.render('gitmentContainer');

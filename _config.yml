@@ -83,8 +83,14 @@ collections:
 repository: binz123/binzblog.github.io
 # Support for LiveRe comments system.
 # You can get your uid from https://livere.com/insight/myCode (General web site)
-livere_uid: MTAyMC8zMDkzNy83NDg2
-
+gitment:
+    username: binz123
+    repo: binzblog-comments
+    oauth:
+      user_id: ba21e206004219760e3f
+      user_sercret: 3aca8eb8f2cae89cec10f1cef181203ae6893721
+# 在使用其它评论组件时可点击显示 Disqus
+lazy_load_disqus : true
 # ---------------- #
 #    Analytics     #
 # ---------------- #
