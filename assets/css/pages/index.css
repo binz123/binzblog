@@ -3,7 +3,8 @@
     background: linear-gradient(to right, #fddd10, #ff6c2c, #e5e, #2fabe1);
     color: #fff;
     background-size:2000%;
-    animation: :gradientBackground 10s alternate ease-in-out;
+    animation: gradientBackground 10s alternate ease-in-out;
+    -webkit-animation:gradientBackground 10s alternate ease-in-out;/* Safari and Chrome */
     animation-iteration-count: infinite;
 }
 
