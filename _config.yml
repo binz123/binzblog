@@ -32,22 +32,26 @@ navs:
   -
     href: /
     label: 首页
+    icon: octicon-home
 
   -
     href: /categories/
     label: 分类
+    icon: octicon-book
 
   -
     href: /wiki/
     label: 维基
+    icon: octicon-mortar-board
 
   -
     href: /links/
     label: 链接
-
+    icon: octicon-globe
   -
     href: /about/
     label: 关于
+    icon: octicon-gist-secret
 
 # ---------------- #
 #       RSS        #
