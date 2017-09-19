@@ -1,7 +1,10 @@
 .home .banner,
 .home .site-header {
-    background: #4183c4;
-    color: #fff
+    background: linear-gradient(to right, #fddd10, #ff6c2c, #e5e, #2fabe1);
+    color: #fff;
+    background-size:2000%;
+    animation: :gradientBackground 10s alternate ease-in-out;
+    animation-iteration-count: infinite;
 }
 
 .home .banner .collection-head {
@@ -36,4 +39,15 @@
   .home .collection-head .collection-header {
     font-size: 1.25em;
   }
+}
+
+@keyframes gradientBackground
+{
+  0% {background-position: left;}
+	100% {background-position: right;}
+}
+@-webkit-keyframes gradientBackground
+{
+  0% {background-position: left;}
+	100% {background-position: right;}
 }
