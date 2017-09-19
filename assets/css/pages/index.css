@@ -1,6 +1,6 @@
 .home .banner,
 .home .site-header {
-    background: linear-gradient(to right, #fddd10, #ff6c2c, #e5e, #2fabe1);
+    background: linear-gradient(to right, #b071ea, #2fabe1);
     color: #fff;
     background-size:2000%;
     animation: gradientBackground 10s alternate ease-in-out;
