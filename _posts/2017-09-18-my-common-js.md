@@ -720,6 +720,64 @@ img{
 
 ```
 
-## 5.封装成库
+## 5.ES6常用操作
+
+**将Map对象转为对象:**
+```javascript
+function strMapToObj(strmap){
+  let obj = Object.create(null);
+  for(let [k,v] of strmap){
+    obj[k] = v;
+  }
+  return obj;
+}
+```
+
+**将对象转换为Map：**
+```javascript
+function objToStrMap(obj){
+  let strMap = new Map();
+  for(let thisKey of Object.key(obj)){
+    strMap.set(thisKey,obj[thisKey]);
+  }
+  return strMap;
+}
+```
+
+**将Map转换为json**
+> 当Map的键值为纯字符串时
+
+```javascript
+function strMaptoJson(strMap){
+  //现将map对象转换为一般对象，再通过JSON.stringify方法进行转换
+  return JSON.stringify(strMapToObj(strMap));
+}
+```
+
+> 当Map的键值不为纯字符串时
+
+```javascript
+function nstrMaptoJson(strMap){
+  //此时需要将map转换为数组json
+  return JSON.stringify([...strMap]);
+}
+```
+
+**JSON转换为Map**
+```javascript
+function jsonToMap(strJson){
+  //现将json转换为对象形式，最后通过对象转换为map
+  return objToStrMap(JSON.parse(strJson));
+}
+```
+
+> 有一种特殊情况，整个 JSON 就是一个数组，且每个数组成员本身，又是一个有两个成员的数组。（摘取自阮一峰的ES6教程）
+
+```javascript
+function arrJsonToMap(arrJson){
+  return new Map(JSON.parse(arrJson));
+}
+```
+## 6.封装成库
 
 [[如何封装JS工具库]](http://binzhome.com/2017/09/18/how-to-package-libray/).
