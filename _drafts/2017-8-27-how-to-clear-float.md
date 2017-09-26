@@ -64,4 +64,56 @@ float 属性定义元素在哪个方向浮动。以往这个属性总应用于�
 
 ## clear属性造成的困扰
 
-clear属性的官方定义是：规定元素的哪一侧不允许其他浮动元素。注意这里清除并不是清除float元素的效果，也不是清除float元素造成塌陷的结果，我见过有人将clear写在父元素上结果喊着说clear欺骗了他（没错，就是我）
+clear属性的官方定义是：规定元素的哪一侧不允许其他浮动元素。注意这里清除并不是清除float元素的效果，也不是清除float元素造成塌陷的结果，我见过有人将clear写在父元素上结果喊着说clear欺骗了他（没错，就是我）。
+
+clear属性只是规定了拥有该属性的元素两侧的浮动元素不会对它造成影响，什么意思？再看段代码
+
+```html
+<div class="parent">
+  <div class="child-first"></div>
+  <div class="child-second"></div>
+</div>
+```
+```css
+.parent{
+  width:200px;
+  margin:40px auto;
+  padding:10px;
+  background:blue;
+}
+[class^='child']{
+  float:left;
+  width:40px;
+  height:40px;
+  background:red;
+  opacity:0.6;
+}
+
+.child-second{
+  clear:both;
+}
+```
+![float2](../images/floattest/floattest2.jpg)
+我们在第二子元素child-second上添加了clear:both;属性,这时第二个子元素并没有挨着第一个浮动的子元素排列，而是像块级元素一样(float清除了div中块级元素的特性)展示到了下一行。但是它并没有撑开父元素，也没有改变其他子元素的排列。
+
+clear属性**只影响使用这个属性的元素本身，不影响其他元素。** 所以在浮动元素或者父元素上利用clear属性来解决塌陷问题不成立的，因为无论你是加在父元素还是子元素上，都对其他元素没有任何影响。(但clear确实可以解决塌陷问题，下面就给出正确答案)
+
+
+## 解决
+我们想要达成的结果是，既保持浮动的效果，又能解决浮动导致的塌陷问题。
+
+分别先给出解决方案，再解释原因。我们还是第一个例子的基础上做实验。
+
+1. 添加额外标签
+```html
+<div class="parent">
+  <div class="child-left"></div>
+  <div class="child-right"></div>
+  <div style="clear:both;"></div>
+</div>
+```
+
+我们发现
+
+
+
