@@ -102,9 +102,9 @@ clear属性**只影响使用这个属性的元素本身，不影响其他元素�
 ## 解决
 我们想要达成的结果是，既保持浮动的效果，又能解决浮动导致的塌陷问题。
 
-分别先给出解决方案，再解释原因。我们还是第一个例子的基础上做实验。
+分别先给出解决方案，再解释原因。我们还是分别以第一个例子的基础上做实验。
 
-1. 添加额外标签
+1. **添加额外标签**
 ```html
 <div class="parent">
   <div class="child-left"></div>
@@ -113,7 +113,93 @@ clear属性**只影响使用这个属性的元素本身，不影响其他元素�
 </div>
 ```
 
-我们发现
+我们发现此时parent元素已经被撑起来了，撑起来的原因是我们在两个设置浮动的元素下添加了一个额外的标签，并且将clear属性设置为both，clear属性是让自身不能和前面的浮动元素相邻，这样父级中就有了一个块级元素，从而被动撑起。
+
+但是这种方法会添加额外的无意义的标签，使得结构和表现分离，让后期维护变成噩梦，实际项目中还是不要使用这种方法。
+
+2. **br标签**
+```html
+<div class="parent">
+  <div class="child-left"></div>
+  <div class="child-right"></div>
+  <br clear="all"/>
+</div>
+```
+
+br标签自带clear属性，其实现原理跟上面相同，所以缺点也是使得结构和表现分离了，所以同样不推荐这种方法。
+
+3. **父元素设置overflow:hidden**
+```css
+.parent{
+  overflow:hidden;
+  width:200px;
+  margin:40px auto;
+  padding:10px;
+  background:blue;
+}
+```
+html元素与一开始的demo一样不做任何变动，只是再parent类元素中添加overflow:hidden;的样式。一开始我对这种清除浮动的方式很不理解，后来查了不少资料才找到比较合理的解释。overflow:hidden 的意思是超出的部分要裁切隐藏掉，如果float元素不占用普通流位置，则普通流的包含块需要根据内容进行裁切隐藏，如果高度的默认值是auto，那么不计算float的元素就进行裁切，这样就会把float元素也裁切掉，显然是违背布局常识的。所以在没有明确容器高度的情况下，必须要把浮动元素的高度也计算进来，顺理成章的也达到了清除浮动的目标（许多人用BFC来解释这个问题，但我觉得这样理解其实更好，感谢知乎的@貘吃馍香）。
+
+这种方式的缺点也一目了然，我们无法再显示溢出的元素，且不会自动换行了，所以最好还是不要使用这种方式。
+
+4. **父元素设置 overflow：auto 属性**
+
+这个方法与上面原理差不多，但是在firefox中会出现focus的效果，并且某些情况下还会出现内容全选。所以也不推荐这种方式。
+
+5. **父元素设置为浮动**
+
+这种方式会使得与父元素相邻的元素的布局会受到影响，不可能一直浮动到body，不推荐使用。
+
+6. **父元素设置display:table**
+```css
+.parent{
+  display:table;
+  width:200px;
+  margin:40px auto;
+  padding:10px;
+  background:blue;
+}
+```
+我们先把解决方案放在这里，至于原理，下面将结合Block formatting contexts （块级格式化上下文）,简称BFC。一同解释。这种方案会导致盒模型属性发生变化，从而引起一系列的问题。同样不推荐使用。
+
+7. :after伪元素
+```html
+<div class="parent clearfix">
+  <div class="child-left"></div>
+  <div class="child-right"></div>
+</div>
+```
+```css
+.parent{
+  width:200px;
+  margin:40px auto;
+  padding:10px;
+  background:blue;
+}
+.clearfix:after 
+ {
+   content:"."; 
+   display:block;
+   height:0; 
+   visibility:hidden; 
+   clear:both; 
+}
+.clearfix { 
+  *zoom:1; 
+}
+[class^='child']{
+  width:40px;
+  height:40px;
+  background:red;
+  opacity:0.6;
+}
+.child-left{
+  float:left;
+}
+.child-right{
+  float:right;
+}
+```
 
 
 
