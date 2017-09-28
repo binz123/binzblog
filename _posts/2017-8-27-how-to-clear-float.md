@@ -39,7 +39,7 @@ float这东西，刚开始用的时候觉得挺好用的，布局很方便呀，
 }
 ```
 最终显示：
-![float1](http://binzhehome.com/assets/images/floattest/float1.jpg)
+![float1](http://binzhome.com/assets/images/floattest/float1.jpg)
 
 我们蓝色背景的父级容器，里面有两个子元素，按照盒子模型的原理，块级子元素应当可以撑开父级元素的高度，但是这里并没有。造成这个现象的原因是因为我们在子元素中定义了float浮动的样式，导致父元素无法被撑起，也就是我们常说的父元素塌陷。
 
@@ -93,7 +93,7 @@ clear属性只是规定了拥有该属性的元素两侧的浮动元素不会对
   clear:both;
 }
 ```
-![float2](http://binzhehome.com/assets/images/floattest/floattest2.jpg)
+![float2](http://binzhome.com/assets/images/floattest/floattest2.jpg)
 我们在第二子元素child-second上添加了clear:both;属性,这时第二个子元素并没有挨着第一个浮动的子元素排列，而是像块级元素一样(float清除了div中块级元素的特性)展示到了下一行。但是它并没有撑开父元素，也没有改变其他子元素的排列。
 
 clear属性**只影响使用这个属性的元素本身，不影响其他元素。** 所以在浮动元素或者父元素上利用clear属性来解决塌陷问题不成立的，因为无论你是加在父元素还是子元素上，都对其他元素没有任何影响。(但clear确实可以解决塌陷问题，下面就给出正确答案)
