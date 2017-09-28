@@ -58,7 +58,7 @@ float 属性定义元素在哪个方向浮动。以往这个属性总应用于�
 
 ## 原因
 
-既然问题更float元素的定义都给了出来了，那么就要开始分析造成上面父元素塌陷的原因了，其实上面已经解释了。
+既然问题与float元素的定义都给了出来了，那么就要开始分析造成上面父元素塌陷的原因了，其实上面已经解释了。
 
 其实就是因为float元素（相对）脱离了文档流造成的。html文档加载解析时是从上到下，从左到右的，浮动元素脱离文档流后就不受文档流的管辖了，这就导致它存在父元素的高度随着浮动被抹去了，父元素也默认无视了这个浮动元素，上文代码中除浮动元素外没有其他元素，所以就会出现上面的父元素塌陷的问题。
 
@@ -200,6 +200,75 @@ html元素与一开始的demo一样不做任何变动，只是再parent类元素
   float:right;
 }
 ```
+这段代码里，我们并没有再html代码中添加新的标签，只是在父级元素中新增了一个clearfix的类名。在css代码中，我们定义了clearfix的:after伪元素，并相应的做了一些样式上的改变，于是发现原来塌陷的父元素被撑起了。
+
+这里将:after伪元素设置为display:block;的原因是使生成的元素以块级元素显示，从而占满剩余空间。   height:0;是为了避免生成的内容破坏了原有布局的高度。visibility:hidden 使生成的内容不可见，并允许可能被生成内容盖住的内容可以进行点击和交互。最后clear就不言而喻了。
+
+最后提一点，可能有人会问clearfix类中的*zoom:1;是什么意思？这是为了兼容IE6~7的原因，IE6~7不支持:after伪元素，我们使用zoom:1;触发 hasLayout。
+
+这是比较推荐的方式。
+## BFC
+
+为了彻底了解display:table;能够解决塌陷问题的原因，我们就必须先弄懂BFC到底是个什么东西。
 
 
+一个**块格式化上下文**由以下之一创建：
 
+- 根元素或其它包含它的元素
+
+- 浮动元素 (元素的 float 不是 none)
+
+- 绝对定位元素 (元素具有 position 为 absolute 或 fixed)
+
+- 内联块 (元素具有 display: inline-block)
+
+- 表格单元格 (元素具有 display: table-cell，HTML表格单元格默认属性)
+
+- 表格标题 (元素具有 display: table-caption, HTML表格标题默认属性)
+
+- 具有overflow 且值不是 visible 的块元素，
+
+- display: flow-root
+
+- column-span: all 应当总是会创建一个新的格式化上下文，即便具有 column-span: all 的元素并不被包裹在一个多列容器中。
+
+
+一个**块格式化上下文（block formatting context）** 是Web页面的可视化CSS渲染出的一部分。它是块级盒布局出现的区域，也是浮动层元素进行交互的区域。
+
+上面是MDN与w3c给出的定义，说实话，我第一次看到这玩意的时候，表情基本是问号问号问号的，它到底表示的是什么呢？
+
+换句说法，BFC是一个决定了块盒子布局与浮动相互影响的范围。首先，它是一个范围，一个BFC包含创建该上下文元素的所有子元素，但不包括创建了新BFC的子元素的内部元素。这看上去还是有点拗口，我们再来看一段代码。
+
+```html
+<div id="father" class="BFC">
+  <div id="son1">
+     <div id="grandson1"></div>
+     <div id="grandson2"></div>
+  </div>
+  <div id="son2" class="BFC">
+     <div id="grandson3"></div>
+     <div id="grandson4"></div>
+  </div>
+</div>
+```
+这里BFC类表示这个元素创建了新的块格式化上下文（BFC）。
+
+我们的#father创建了一个BFC，它的范围包括了#son1,#grandson1,#grandson2,#son2，在这里#son1的子元素也是属于#father的BFC的。但是#son2中的#grandson3,#grandson4就不属于#father的BFC了，这是因为#son2创建了一个新的BFC，它所包含的子元素此时应当属于#son2的BFC，不难得出**一个元素在任何时候只能属于一个BFC**。
+
+当我们在父元素上使用display:table;时，它的子元素会产生匿名框(anonymous boxes) 而匿名框中的display:table-cell可以创建新的BFC，这样就解决了塌陷的问题。同理，overflow:hidden;也可以用这种方式解释。
+
+关于BFC的跟多解释，<a href="https://segmentfault.com/a/1190000004246731" title="BFC">请看这里</a>
+
+## 总结
+到这里，关于浮动跟清除浮动已经解释完了，前端水很深坑很多，黑科技更是层出不穷，但沉下心去学习会发现很多之前没有探索过的东西。保持一颗好奇的心吧。
+
+推荐阅读：
+
+<a href="https://developer.mozilla.org/zh-CN/docs/CSS/float">
+ MDN float</a>
+
+ <a href="http://www.iyunlu.com/view/css-xhtml/55.html">那些年我们一起清除过的浮动</a>
+
+ <a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context">MDN BFC</a>
+
+ 
