@@ -1,6 +1,6 @@
 ---
 layout: post
-title: float浮动与清除(闭合)全面剖析
+title: float浮动与清除全面剖析
 categories: css
 description: float全面剖析
 keywords: css 小技巧
@@ -163,12 +163,14 @@ html元素与一开始的demo一样不做任何变动，只是再parent类元素
 我们先把解决方案放在这里，至于原理，下面将结合Block formatting contexts （块级格式化上下文）,简称BFC。一同解释。这种方案会导致盒模型属性发生变化，从而引起一系列的问题。同样不推荐使用。
 
 7. :after伪元素
+
 ```html
 <div class="parent clearfix">
   <div class="child-left"></div>
   <div class="child-right"></div>
 </div>
 ```
+
 ```css
 .parent{
   width:200px;
