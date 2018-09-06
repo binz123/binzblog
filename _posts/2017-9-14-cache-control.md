@@ -32,17 +32,17 @@ ETag > Last-Modified
 ### 强缓存
 浏览器缓存可用
 
-![cache3](http://binzhome.com/assets/images/cachecontrol/strongcachesuccess.jpg)
+![cache3](http://binzhome.com/assets/images/cachecontrol/strongcachesuccess.png)
 
 浏览器缓存不可用
 
-![cache1](http://binzhome.com/assets/images/cachecontrol/strongcachefailed.jpg)
+![cache1](http://binzhome.com/assets/images/cachecontrol/strongcachefailed.png)
 
 ### 协商缓存
 浏览器缓存有效  
-![cache3](http://binzhome.com/assets/images/cachecontrol/weakcachesuccess.jpg)  
+![cache3](http://binzhome.com/assets/images/cachecontrol/weakcachesuccess.png)  
 浏览器缓存无效  
-![cache2](http://binzhome.com/assets/images/cachecontrol/weakcachefailed.jpg)
+![cache2](http://binzhome.com/assets/images/cachecontrol/weakcachefailed.png)
 
 **总结：**可以看出来强缓存与协商缓存机制的区别在于是否需要通过与服务器进行协商确认来区分，强缓存判断该缓存是否有效可以直接通过判断浏览器缓存当前是否在可用期内，若可用则直接返回对应数据。而协商缓存获取的只是一个标识，该标识此时是否有效，还需要与服务器进行请求判断，服务器最后根据标识有效性返回对应的信息（有的人会认为若有效，不是也已经发起了一个请求进行了一次通信了么，这有什么意义呢？其实如果标识有效，服务器返回的只是一个非常小响应头，并不包含响应的主体部分，所以相比来说是大大减少了消耗）
 
