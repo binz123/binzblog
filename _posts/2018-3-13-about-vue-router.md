@@ -1,10 +1,11 @@
 ---
 layout: post
-title:一步一步来的Vue-router源码解析
-categories: javascript,Vue,Vue-router
-description: 对Vue-router源码的解析跟自我提升
-keywords:Vue VueRouter 源码
+title: 一步一步来的Vue-router源码解析
+categories: Vue
+description: VueRouter源码解析
+keywords: javascript Vue VueRouter
 ---
+
 ## 前言
 最近跟大佬聊天，说了一下自己的技术，能力跟将来的目标，大佬听到我说用Vue比较多就问我有没有看过Vue-router的源码。当时有点懵，Vue-router的源码？Vue的源码我倒是看过一点，说起来也能头头是道，但Vue-router的源码，Umm...它不就是利用了hash跟组件间的对应关系且对URL中hash的改变并不会刷新页面实现的么？然后大佬就问，hash值的改变让组件更新是怎么实现的呢？ 
    
